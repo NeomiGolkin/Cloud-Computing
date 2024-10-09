@@ -1,13 +1,23 @@
 const express = require('express');
-const app = express(); // ודא שהמשתנה app מוגדר כאן
+const bodyParser = require('body-parser');
+const path = require('path'); // הוסיפי את זה
 
-app.use(express.static('public'));
+const userRoutes = require('./routes/authRoutes'); // קישור למסלולים
 
+const app = express();
+const port = process.env.PORT || 3999;
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// שימוש במסלולים
+app.use('/api/users', userRoutes);
+
+// הגדרת השרת לשרת את הקובץ HTML
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+    res.sendFile(path.join(__dirname, 'views', 'index.html')); // מספקת את קובץ ה-HTML
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
 });
