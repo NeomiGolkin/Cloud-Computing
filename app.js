@@ -1,6 +1,7 @@
 const express = require('express');
 
 const bodyParser = require('body-parser');
+const expressLayouts = require('express-ejs-layouts'); // הגדרת המשתנה expressLayouts
 const path = require('path');
 const session = require('express-session'); // הוספת express-session
 
@@ -8,6 +9,10 @@ const userRoutes = require('./routes/authRoutes');
 
 const app = express(); // הוספת שורת קוד זו
 const port = process.env.PORT || 3008;
+
+// שימוש ב-layouts
+app.use(expressLayouts);
+app.set('layout', 'layout'); // הגדרת קובץ ה-layout
 
 // קביעת EJS כתבנית
 app.set('view engine', 'ejs'); // הוסף שורה זו
@@ -35,6 +40,16 @@ app.get('/', (req, res) => {
 // הגדרת השרת לשרת את דף ה-main
 app.get('/mainPage', (req, res) => {
     res.render('mainPage'); // שימוש ב-res.render במקום sendFile
+});
+
+// נתיב לראות גרף של ארוחה
+app.get('/mealChart', (req, res) => {
+    res.render('mealChart'); // דף addMeal.ejs
+});
+
+// הגדרת השרת לשרת את דף ה-main
+app.get('/addmeal', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'addmeal.html')); // מציין את המיקום המדויק של הקובץ
 });
 
 app.listen(port, () => {
