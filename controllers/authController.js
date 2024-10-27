@@ -16,7 +16,6 @@ async function registerUser(req, res) {
     }
 }
 
-
 // פונקציה להתחברות משתמש
 async function loginUser(req, res) {
     const { username, password } = req.body; // קבלת נתוני המשתמש מהגוף של הבקשה
@@ -37,6 +36,7 @@ async function loginUser(req, res) {
 
             if (isMatch) {
                 res.send('נכנסת בהצלחה'); // הודעה על הצלחה
+                          
             } else {
                 res.status(401).send('פרטי התחברות לא נכונים'); // סיסמה שגויה
             }

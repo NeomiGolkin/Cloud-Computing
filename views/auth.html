@@ -98,13 +98,6 @@ document.getElementById('registerForm').addEventListener('submit', async functio
     }
 });
 
-
-
-
-
-
-
-
 // פונקציית התחברות
 document.getElementById('loginForm').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -117,14 +110,8 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password })
         });
-
-        if (response.ok) {
-            // אם ההתחברות הצליחה, הפנה לדף אחר
-            window.location.href = '/mainPage'; // החלף בנתיב של הדף הרצוי
-        } else {
-            const message = await response.text();
-            document.getElementById('loginMessage').innerText = message;
-        }
+        const message = await response.text();
+        document.getElementById('loginMessage').innerText = message;
     } catch (error) {
         document.getElementById('loginMessage').innerText = 'Error logging in';
     }
