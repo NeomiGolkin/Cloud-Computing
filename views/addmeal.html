@@ -167,10 +167,17 @@
 
                 if (data.foods && data.foods.length > 0) {
                     for (const foodItem of data.foods) {
-                        const sugarValue = foodItem.foodNutrients.find(n => n.nutrientName.includes('Sugars'));
-                        const glucoseValue = foodItem.foodNutrients.find(n => n.nutrientName.includes('Glucose'));
-                       
-                        if (sugarValue || glucoseValue) {
+                        console.log(foodItem.foodNutrients); // הדפסת כל הערכים
+
+                        // בדיקה לערך של סוכר כולל בלבד
+                        const sugarValue = foodItem.foodNutrients.find(n =>
+                            n.nutrientName.includes('Total Sugars')
+                        );
+                        
+                        // משתמשים בערך של סוכר כולל גם עבור גלוקוז אם אין ערך נפרד לגלוקוז
+                        const glucoseValue = sugarValue; // מייצג את הערך הכולל אם גלוקוז חסר
+
+                        if (sugarValue) {
                             displayNutritionalInfo(foodItem, sugarValue, glucoseValue);
                             return;
                         }
@@ -188,8 +195,8 @@
         function displayNutritionalInfo(foodItem, sugarValue, glucoseValue) {
             sugarInfoDiv.innerHTML = `<h4>Nutritional Information:</h4>
                                       <p>${foodItem.description}</p>
-                                      <p>Sugar: ${sugarValue ? sugarValue.value : 'N/A'}g</p>
-                                      <p>Glucose: ${glucoseValue ? glucoseValue.value : 'N/A'}g</p>`;
+                                      <p>Sugar: ${sugarValue ? sugarValue.value + 'g' : 'N/A'}</p>
+                                      <p>Glucose: ${glucoseValue ? glucoseValue.value + 'g (Total Sugars)' : 'N/A'}</p>`;
         }
     </script>
 </body>
