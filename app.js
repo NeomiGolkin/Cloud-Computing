@@ -6,9 +6,11 @@ const path = require('path');
 const session = require('express-session'); // הוספת express-session
 
 const userRoutes = require('./routes/authRoutes');
+const addMealRoutes = require('./routes/addMealRoutes');
+
 
 const app = express(); // הוספת שורת קוד זו
-const port = process.env.PORT || 3008;
+const port = process.env.PORT || 5442;
 
 // שימוש ב-layouts
 app.use(expressLayouts);
@@ -30,6 +32,8 @@ app.use(session({
 
 // שימוש במסלולים
 app.use('/api/users', userRoutes);
+app.use('/api', addMealRoutes);
+
 
 
 // הגדרת השרת לשרת את הקובץ HTML לדף ההתחברות
@@ -48,9 +52,18 @@ app.get('/mealChart', (req, res) => {
 });
 
 // הגדרת השרת לשרת את דף ה-main
-app.get('/addmeal', (req, res) => {
+app.get('/add-meal', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'addmeal.html')); // מציין את המיקום המדויק של הקובץ
 });
+
+// קבלת הנתונים
+app.post('/api/add-meal', (req, res) => {
+    console.log('POST request received at /api/add-meal');
+    console.log('Data:', req.body);
+    // כאן יבוא עיבוד הנתונים ושמירתם בבסיס הנתונים
+    res.status(200).send('Data received');
+});
+
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
