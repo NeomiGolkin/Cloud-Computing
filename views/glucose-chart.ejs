@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>גרף סוכר בדם</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- הוספת Chart.js -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- הוספת jQuery -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-image: url('/images/GLUCOSE_CHART.jpg'); /* נתיב לתמונה */
+            background-size: cover; /* כיסוי התמונה על כל הדף */
+            background-repeat: no-repeat;
+            background-position: center;
+            color: white; /* טקסט לבן על רקע כהה */
+        }
+        .filter-container {
+            margin-bottom: 10px;
+        }
+        .button-container {
+            margin-top: 10px;
+        }
+        #glucoseChart {
+            width: 90%; /* מתאים למסך */
+            max-width: 1500px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <h1>גרף סוכר בדם</h1>
+    
+    <!-- תיבות בחירת טווח התאריכים -->
+    <div class="filter-container">
+        <label for="startDate">תאריך התחלה:</label>
+        <input type="date" id="startDate">
+        
+        <label for="endDate">תאריך סיום:</label>
+        <input type="date" id="endDate">
+    </div>
+
+    <!-- כפתורי פעולה -->
+    <div class="button-container">
+        <button id="filterButton">סנן</button>
+        <button id="resetButton">אתחל</button>
+    </div>
+
+    <!-- אלמנט הגרף -->
+    <canvas id="glucoseChart"></canvas>
+
+    <script>
+        $(document).ready(function() {
+            let glucoseData = []; // נתוני הסוכר שיתעדכנו
+            let chartInstance; // שמירת הגרף באובייקט כדי לעדכן אותו
+
+            // פונקציה להמרת תאריך לפורמט dd/mm/yyyy
+            function formatDateToIsraeli(dateString) {
+                const date = new Date(dateString);
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0'); // חודשים מתחילים מאפס ב-JS
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+            }
+
+            // פונקציה לעדכון הגרף
+            function updateChart(data) {
+                const labels = data.map(item => formatDateToIsraeli(item.date || ''));
+                const glucoseValues = data.map(item => item.glucose);
+
+                if (chartInstance) {
+                    // עדכון נתונים בגרף קיים
+                    chartInstance.data.labels = labels;
+                    chartInstance.data.datasets[0].data = glucoseValues;
+                    chartInstance.update();
+                } else {
+                    // יצירת גרף חדש
+                    const ctx = document.getElementById('glucoseChart').getContext('2d');
+                    chartInstance = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'רמת סוכר בדם',
+                                data: glucoseValues,
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                x: { 
+                                    title: { display: true, text: 'תאריך' },
+                                    type: 'category',
+                                },
+                                y: { title: { display: true, text: 'רמת סוכר (mg/dL)' } }
+                            }
+                        }
+                    });
+                }
+            }
+
+            // שליפת הנתונים מה-API
+            $.get('/api/glucose/glucose-data')
+            .done(function(response) {
+                try {
+                    glucoseData = typeof response === 'string' ? JSON.parse(response) : response;
+
+                    // מיון הנתונים לפי התאריך
+                    glucoseData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+                    // הצגת הגרף עם כל הנתונים
+                    updateChart(glucoseData);
+
+                } catch (error) {
+                    console.error('Failed to parse JSON data:', error);
+                }
+            })
+            .fail(function(xhr, status, error) {
+                console.error('Failed to load data:', status, error);
+            });
+
+            // סינון הנתונים לפי תאריכים
+            $('#filterButton').click(function() {
+                const startDate = $('#startDate').val();
+                const endDate = $('#endDate').val();
+
+                if (startDate && endDate) {
+                    const filteredData = glucoseData.filter(item => {
+                        const itemDate = new Date(item.date);
+                        return itemDate >= new Date(startDate) && itemDate <= new Date(endDate);
+                    });
+
+                    if (filteredData.length > 0) {
+                        updateChart(filteredData);
+                    } else {
+                        alert('לא נמצאו נתונים בטווח התאריכים שנבחר.');
+                    }
+                } else {
+                    alert('יש לבחור תאריך התחלה ויום סיום');
+                }
+            });
+
+            // אתחול הגרף להצגת כל הנתונים
+            $('#resetButton').click(function() {
+                updateChart(glucoseData); // הצגת כל הנתונים מחדש
+                $('#startDate').val('');
+                $('#endDate').val('');
+            });
+        });
+    </script>
+</body>
+</html>

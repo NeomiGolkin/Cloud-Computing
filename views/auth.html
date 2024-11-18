@@ -8,12 +8,15 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            direction: rtl;
+            text-align: center;
             margin: 0;
+            padding: 0;
+            background-image: url('/images/AUTH.jpg'); /* נתיב לתמונה */
+            background-size: cover; /* כיסוי התמונה על כל הדף */
+            background-repeat: no-repeat;
+            background-position: center;
+            color: white; /* טקסט לבן על רקע כהה */
         }
         .container {
             background-color: white;
@@ -98,6 +101,13 @@ document.getElementById('registerForm').addEventListener('submit', async functio
     }
 });
 
+
+
+
+
+
+
+
 // פונקציית התחברות
 document.getElementById('loginForm').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -110,8 +120,14 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password })
         });
-        const message = await response.text();
-        document.getElementById('loginMessage').innerText = message;
+
+        if (response.ok) {
+            // אם ההתחברות הצליחה, הפנה לדף אחר
+            window.location.href = '/mainPage'; // החלף בנתיב של הדף הרצוי
+        } else {
+            const message = await response.text();
+            document.getElementById('loginMessage').innerText = message;
+        }
     } catch (error) {
         document.getElementById('loginMessage').innerText = 'Error logging in';
     }

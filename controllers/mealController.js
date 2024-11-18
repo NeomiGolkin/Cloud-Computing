@@ -10,6 +10,9 @@ exports.clinicMessages = (req, res) => {
     res.render('clinicMessages'); // יש ליצור דף חדש להודעות מהמרפאה
 };
 
-exports.mealChart = (req, res) => {
-    res.render('mealChart'); // יש ליצור דף חדש לגרף ארוחות
+
+exports.glucoseChart = (req, res) => {
+    res.render('glucose-chart', { glucoseLevels });
+    //res.render('mealChart'); // יש ליצור דף חדש לגרף ארוחות
 };
+
