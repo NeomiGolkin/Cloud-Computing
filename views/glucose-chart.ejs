@@ -7,6 +7,7 @@
     <title>גרף סוכר בדם</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- הוספת Chart.js -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- הוספת jQuery -->
+    <input type="color" id="colorPicker" name="color" value="#dfd29c">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,41 +15,89 @@
             text-align: center;
             margin: 0;
             padding: 0;
-            background-image: url('/images/GLUCOSE_CHART.jpg'); /* נתיב לתמונה */
-            background-size: cover; /* כיסוי התמונה על כל הדף */
+            background-image: url('/images/GLUCOSE_CHART.jpg');
+            background-size: cover; /* מבטיח שהתמונה תכסה את כל הרקע */
             background-repeat: no-repeat;
+            background-attachment: fixed; /* תמונה קבועה שלא זזה */
             background-position: center;
-            color: white; /* טקסט לבן על רקע כהה */
+            color: rgb(255, 255, 255);
+            overflow-x: hidden; /* מניעת גלילה אופקית */
         }
+
         .filter-container {
-            margin-bottom: 10px;
+            position: absolute; /* שליטה ידנית על מיקום המיכל */
+            top: 38%; /* התאמת המרחק מלמעלה */
+            left: 70%; /* התאמת המרחק מהצד השמאלי */
+            transform: translateX(-50%); /* מרכז את המיכל בצורה אופקית */
+            display: flex;
+            flex-direction: column; /* מסדר את הכפתורים בטור */
+            align-items: center; /* ממרכז את הכפתורים */
+            gap: 38px; /* קובע רווח בין הכפתורים */
+        }
+        .filter-container input[type="date"] {
+            width: 170px; /* רוחב הכפתורים */
+            height: 31px; /* גובה הכפתורים */
+            font-size: 16px; /* גודל הטקסט בכפתורים */
+            padding: 10px; /* ריווח פנימי */
+            border-radius: 5px; /* עיגול פינות */
+            background-color: #dfd29c; /* צבע רקע */
+            color: rgb(17, 16, 16); /* צבע טקסט */
+            border: none; /* ללא גבול */
+            cursor: pointer; /* שינוי מצביע העכבר */
         }
         .button-container {
-            margin-top: 10px;
+            position: absolute; /* שליטה ידנית על מיקום המיכל */
+            top: 80%; /* התאמת המרחק מלמעלה */
+            left: 70%; /* התאמת המרחק מהצד השמאלי */
+            transform: translateX(-50%); /* מרכז את המיכל בצורה אופקית */
+            display: flex;
+            flex-direction: column; /* מסדר את הכפתורים בטור */
+            align-items: center; /* ממרכז את הכפתורים */
+            gap: 38px; /* קובע רווח בין הכפתורים */
+        }
+        .button-container button {
+            width: 170px; /* רוחב הכפתורים */
+            height: 31px; /* גובה הכפתורים */
+            font-size: 16px; /* גודל הטקסט בכפתורים */
+            padding: 10px; /* ריווח פנימי */
+            border-radius: 5px; /* עיגול פינות */
+            background-color: #dfd29c04; /* צבע רקע */
+            color: rgb(17, 16, 16); /* צבע טקסט */
+            border: none; /* ללא גבול */
+            cursor: pointer; /* שינוי מצביע העכבר */
         }
         #glucoseChart {
-            width: 90%; /* מתאים למסך */
-            max-width: 1500px;
+            width: 40%; /* מתאים למסך */
+            max-width: 1700px;
             height: 500px;
+            max-height: 450px; /* שמירת גובה מקסימלי */
+            margin-top: 11.5%;
+            margin-right: 50%;
+            margin-bottom: -8%;
         }
+        #colorPicker {
+            position: absolute; /* מיקום מוחלט */
+            top: 31%; /* מרחק מלמעלה */
+            left: 17%; /* מרחק מהצד השמאלי */
+            transform: translate(-50%, -50%); /* ממרכז את האלמנט */
+        }
+
     </style>
 </head>
 <body>
-    <h1>גרף סוכר בדם</h1>
     
     <!-- תיבות בחירת טווח התאריכים -->
     <div class="filter-container">
-        <label for="startDate">תאריך התחלה:</label>
+        <label for="startDate"></label>
         <input type="date" id="startDate">
-        
-        <label for="endDate">תאריך סיום:</label>
+        <label for="endDate"></label>
         <input type="date" id="endDate">
     </div>
 
     <!-- כפתורי פעולה -->
     <div class="button-container">
-        <button id="filterButton">סנן</button>
-        <button id="resetButton">אתחל</button>
+        <button id="filterButton"></button>
+        <button id="resetButton"></button>
     </div>
 
     <!-- אלמנט הגרף -->
@@ -56,6 +105,21 @@
 
     <script>
         $(document).ready(function() {
+        // בורר צבעים
+            $('#colorPicker').on('input', function() {
+                const color = $(this).val(); // קבלת הצבע שנבחר
+                updateChartWithNewColor(color); // עדכון הגרף עם הצבע החדש
+            });
+
+            // פונקציה לעדכון הגרף עם הצבע החדש
+            function updateChartWithNewColor(color) {
+                if (chartInstance) {
+                    // שינוי צבע הקו של הגרף
+                    chartInstance.data.datasets[0].borderColor = color;
+                    chartInstance.data.datasets[0].backgroundColor = color + '99'; // צבע שקוף מעט
+                    chartInstance.update();
+                }
+            }
             let glucoseData = []; // נתוני הסוכר שיתעדכנו
             let chartInstance; // שמירת הגרף באובייקט כדי לעדכן אותו
 
@@ -86,21 +150,22 @@
                         data: {
                             labels: labels,
                             datasets: [{
-                                label: 'רמת סוכר בדם',
+                                label: 'Sugar Level in blood',
                                 data: glucoseValues,
-                                borderColor: 'rgba(54, 162, 235, 1)',
-                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: '#ff6396',
+                                backgroundColor: '#ff639699',
                                 borderWidth: 2
                             }]
                         },
                         options: {
                             responsive: true,
+                            maintainAspectRatio: false, // מאפשר שינוי גובה ללא שמירת יחס
                             scales: {
                                 x: { 
-                                    title: { display: true, text: 'תאריך' },
+                                    title: { display: true, text: 'Date' },
                                     type: 'category',
                                 },
-                                y: { title: { display: true, text: 'רמת סוכר (mg/dL)' } }
+                                y: { title: { display: true, text: 'Sugar Level(mg/dL)' } }
                             }
                         }
                     });
