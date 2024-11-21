@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>גרף סוכר בדם</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- הוספת Chart.js -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- הוספת jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> \
     <input type="color" id="colorPicker" name="color" value="#dfd29c">
     <style>
         body {
@@ -16,77 +16,84 @@
             margin: 0;
             padding: 0;
             background-image: url('/images/GLUCOSE_CHART.jpg');
-            background-size: cover; /* מבטיח שהתמונה תכסה את כל הרקע */
+            background-size: cover; 
             background-repeat: no-repeat;
-            background-attachment: fixed; /* תמונה קבועה שלא זזה */
+            background-attachment: fixed; 
             background-position: center;
             color: rgb(255, 255, 255);
-            overflow-x: hidden; /* מניעת גלילה אופקית */
+            overflow-x: hidden;
         }
 
         .filter-container {
-            position: absolute; /* שליטה ידנית על מיקום המיכל */
-            top: 38%; /* התאמת המרחק מלמעלה */
-            left: 70%; /* התאמת המרחק מהצד השמאלי */
-            transform: translateX(-50%); /* מרכז את המיכל בצורה אופקית */
+            position: absolute; 
+            top: 38%; 
+            left: 70%;
+            transform: translateX(-50%); 
             display: flex;
-            flex-direction: column; /* מסדר את הכפתורים בטור */
-            align-items: center; /* ממרכז את הכפתורים */
-            gap: 38px; /* קובע רווח בין הכפתורים */
+            flex-direction: column; 
+            align-items: center; 
+            gap: 38px; 
         }
         .filter-container input[type="date"] {
-            width: 170px; /* רוחב הכפתורים */
-            height: 31px; /* גובה הכפתורים */
-            font-size: 16px; /* גודל הטקסט בכפתורים */
-            padding: 10px; /* ריווח פנימי */
-            border-radius: 5px; /* עיגול פינות */
-            background-color: #dfd29c; /* צבע רקע */
-            color: rgb(17, 16, 16); /* צבע טקסט */
-            border: none; /* ללא גבול */
-            cursor: pointer; /* שינוי מצביע העכבר */
+            width: 170px; 
+            height: 31px; 
+            font-size: 16px;
+            padding: 10px; 
+            border-radius: 5px; 
+            background-color: #dfd29c; 
+            color: rgb(17, 16, 16); 
+            border: none; 
+            cursor: pointer;
         }
         .button-container {
-            position: absolute; /* שליטה ידנית על מיקום המיכל */
-            top: 80%; /* התאמת המרחק מלמעלה */
-            left: 70%; /* התאמת המרחק מהצד השמאלי */
-            transform: translateX(-50%); /* מרכז את המיכל בצורה אופקית */
+            position: absolute; 
+            top: 80%; 
+            left: 70%; 
+            transform: translateX(-50%); 
             display: flex;
-            flex-direction: column; /* מסדר את הכפתורים בטור */
-            align-items: center; /* ממרכז את הכפתורים */
-            gap: 38px; /* קובע רווח בין הכפתורים */
+            flex-direction: column; 
+            align-items: center; 
+            gap: 25px; 
         }
         .button-container button {
-            width: 170px; /* רוחב הכפתורים */
-            height: 31px; /* גובה הכפתורים */
-            font-size: 16px; /* גודל הטקסט בכפתורים */
-            padding: 10px; /* ריווח פנימי */
-            border-radius: 5px; /* עיגול פינות */
-            background-color: #dfd29c04; /* צבע רקע */
-            color: rgb(17, 16, 16); /* צבע טקסט */
-            border: none; /* ללא גבול */
-            cursor: pointer; /* שינוי מצביע העכבר */
+            width: 170px;
+            height: 31px; 
+            font-size: 16px;
+            padding: 10px; 
+            border-radius: 5px; 
+            background-color: #dfd29c04; 
+            color: rgb(17, 16, 16); 
+            border: none; 
+            cursor: pointer; 
         }
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; 
+            height: 100%; 
+            width: 100%;
+        }
+
         #glucoseChart {
-            width: 40%; /* מתאים למסך */
+            width: 40%; 
             max-width: 1700px;
             height: 500px;
-            max-height: 450px; /* שמירת גובה מקסימלי */
-            margin-top: 11.5%;
+            max-height: 450px;
+            margin-top: 9%;
             margin-right: 50%;
             margin-bottom: -8%;
         }
         #colorPicker {
-            position: absolute; /* מיקום מוחלט */
-            top: 31%; /* מרחק מלמעלה */
-            left: 17%; /* מרחק מהצד השמאלי */
-            transform: translate(-50%, -50%); /* ממרכז את האלמנט */
+            position: absolute; 
+            top: 31%;
+            left: 17%; 
+            transform: translate(-50%, -50%); 
         }
 
     </style>
 </head>
 <body>
     
-    <!-- תיבות בחירת טווח התאריכים -->
     <div class="filter-container">
         <label for="startDate"></label>
         <input type="date" id="startDate">
@@ -94,45 +101,38 @@
         <input type="date" id="endDate">
     </div>
 
-    <!-- כפתורי פעולה -->
     <div class="button-container">
         <button id="filterButton"></button>
         <button id="resetButton"></button>
     </div>
 
-    <!-- אלמנט הגרף -->
     <canvas id="glucoseChart"></canvas>
 
     <script>
         $(document).ready(function() {
-        // בורר צבעים
             $('#colorPicker').on('input', function() {
-                const color = $(this).val(); // קבלת הצבע שנבחר
-                updateChartWithNewColor(color); // עדכון הגרף עם הצבע החדש
+                const color = $(this).val(); 
+                updateChartWithNewColor(color); 
             });
 
-            // פונקציה לעדכון הגרף עם הצבע החדש
             function updateChartWithNewColor(color) {
                 if (chartInstance) {
-                    // שינוי צבע הקו של הגרף
                     chartInstance.data.datasets[0].borderColor = color;
-                    chartInstance.data.datasets[0].backgroundColor = color + '99'; // צבע שקוף מעט
+                    chartInstance.data.datasets[0].backgroundColor = color + '99'; 
                     chartInstance.update();
                 }
             }
-            let glucoseData = []; // נתוני הסוכר שיתעדכנו
-            let chartInstance; // שמירת הגרף באובייקט כדי לעדכן אותו
+            let glucoseData = []; 
+            let chartInstance; 
 
-            // פונקציה להמרת תאריך לפורמט dd/mm/yyyy
             function formatDateToIsraeli(dateString) {
                 const date = new Date(dateString);
                 const day = String(date.getDate()).padStart(2, '0');
-                const month = String(date.getMonth() + 1).padStart(2, '0'); // חודשים מתחילים מאפס ב-JS
+                const month = String(date.getMonth() + 1).padStart(2, '0'); 
                 const year = date.getFullYear();
                 return `${day}/${month}/${year}`;
             }
 
-            // פונקציה לעדכון הגרף
             function updateChart(data) {
                 const labels = data.map(item => formatDateToIsraeli(item.date || ''));
                 const glucoseValues = data.map(item => item.glucose);
@@ -143,7 +143,6 @@
                     chartInstance.data.datasets[0].data = glucoseValues;
                     chartInstance.update();
                 } else {
-                    // יצירת גרף חדש
                     const ctx = document.getElementById('glucoseChart').getContext('2d');
                     chartInstance = new Chart(ctx, {
                         type: 'line',
@@ -159,7 +158,7 @@
                         },
                         options: {
                             responsive: true,
-                            maintainAspectRatio: false, // מאפשר שינוי גובה ללא שמירת יחס
+                            maintainAspectRatio: false, 
                             scales: {
                                 x: { 
                                     title: { display: true, text: 'Date' },
@@ -172,16 +171,13 @@
                 }
             }
 
-            // שליפת הנתונים מה-API
             $.get('/api/glucose/glucose-data')
             .done(function(response) {
                 try {
                     glucoseData = typeof response === 'string' ? JSON.parse(response) : response;
 
-                    // מיון הנתונים לפי התאריך
                     glucoseData.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-                    // הצגת הגרף עם כל הנתונים
                     updateChart(glucoseData);
 
                 } catch (error) {
@@ -192,7 +188,6 @@
                 console.error('Failed to load data:', status, error);
             });
 
-            // סינון הנתונים לפי תאריכים
             $('#filterButton').click(function() {
                 const startDate = $('#startDate').val();
                 const endDate = $('#endDate').val();
@@ -213,9 +208,8 @@
                 }
             });
 
-            // אתחול הגרף להצגת כל הנתונים
             $('#resetButton').click(function() {
-                updateChart(glucoseData); // הצגת כל הנתונים מחדש
+                updateChart(glucoseData); 
                 $('#startDate').val('');
                 $('#endDate').val('');
             });

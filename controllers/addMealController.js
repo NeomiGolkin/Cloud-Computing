@@ -1,10 +1,9 @@
 // controllers/addMealController.js
 const foodGlucoseModel = require('../models/addMealModel');
 
-// פונקציה להוספת רמות סוכר למסד נתונים
 async function saveNutritionalInfo(req, res) {
     const { description, sugar, glucose } = req.body;
-    console.log('Data received in controller:', { description, sugar, glucose }); // בדיקת נתונים
+    console.log('Data received in controller:', { description, sugar, glucose }); 
     
     try {
         await foodGlucoseModel.addFoodGlucoseLevel(description, sugar, glucose);
