@@ -127,6 +127,24 @@
 <script>
     // Add your JavaScript here
     
+// פונקציית רישום
+document.getElementById('registerForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const username = document.getElementById('regUsername').value;
+    const password = document.getElementById('regPassword').value;
+
+    try {
+        const response = await fetch('/api/users/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+        const message = await response.text();
+        document.getElementById('registerMessage').innerText = message;
+    } catch (error) {
+        document.getElementById('registerMessage').innerText = 'Error registering user';
+    }
+});
 
 // פונקציית התחברות
 document.getElementById('loginForm').addEventListener('submit', async function(e) {

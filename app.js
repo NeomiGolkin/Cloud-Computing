@@ -39,7 +39,7 @@ app.use(session({
 // הגדרת הנתיבים
 app.use('/api/users', userRoutes);
 app.use('/api/glucose', glucoseRoutes);
-app.use('/api', addMealRoutes);
+app.use('/', addMealRoutes);
 app.use('/', mealRoutes);
 app.use(authRoutes);
 
