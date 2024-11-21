@@ -10,12 +10,13 @@
         margin: 0;
         padding: 0;
         overflow: hidden;
-        border: 1px solid #e7e7e7;
-        background-color: #f3f3f39c;
-        position: fixed; 
-        width: 100%; 
-        top: 0; 
-        z-index: 1000; 
+        background-color: #f7f4e9; /* צבע שמנת */
+        position: fixed; /* מבטיח שהסרגל יישאר למעלה */
+        width: 100%; /* כיסוי מלא לרוחב הדף */
+        top: 0; /* מיקום הסרגל בראש הדף */
+        left: 0; /* מבטיח התחלה משמאל */
+        z-index: 1000; /* מבטיח שהסרגל יישאר מעל שאר האלמנטים */
+        border-bottom: 1px solid #ccc; /* קו תחתון להפרדה */
     }
     
     li {
@@ -24,38 +25,49 @@
     
     li a {
         display: block;
-        color: #509aa9;
+        color: black; /* צבע טקסט רגיל */
         text-align: center;
         padding: 14px 16px;
         text-decoration: none;
+        transition: background-color 0.3s, color 0.3s; /* מעבר חלק */
     }
     
-    li a:hover:not(.active) {
-        background-color: #ddd;
+    li a:hover {
+        background-color: #d4b862; /* צבע זהוב בזמן ריחוף */
+        color: white; /* צבע טקסט לבן בזמן ריחוף */
     }
     
     li a.active {
-        color: white;
-        background-color: #c18874;
+        background-color: #d4b862; /* צבע זהוב לכפתור הפעיל */
+        color: white; /* צבע טקסט לבן לכפתור הפעיל */
     }
     
     main {
-        margin-top: 50px;
-        padding: 20px; 
-        margin-top: 20px; 
-    
+        margin: 0;
+        padding: 20px; /* ריווח פנימי */
+        margin-top: 60px; /* רווח מתחת לסרגל */
+    }
+
+    /* רספונסיביות למסכים קטנים */
+    @media (max-width: 768px) {
+        ul {
+            display: flex;
+            flex-direction: column; /* הסרגל יסתדר בטור */
+        }
+        li {
+            width: 100%; /* כל כפתור ייקח 100% מהרוחב */
+        }
     }
     </style>
 </head>
 <body>
     <header>
-     
         <nav>
             <ul>
                 <li><a class="active" href="/mainPage">Home</a></li>
                 <li><a href="/add-meal">Add meal</a></li>
-                <!--<li><a href="#">היסטוריית ארוחות</a></li>-->
                 <li><a href="/glucose-chart">Graph meals</a></li>
+                <li><a href="/auth">Sign In</a></li>
             </ul>
         </nav>
     </header>

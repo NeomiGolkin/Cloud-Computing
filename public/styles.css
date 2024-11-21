@@ -1,4 +1,4 @@
-body {
+ body {
     font-family: Arial, sans-serif;
 }
 
@@ -28,3 +28,66 @@ footer {
     padding: 20px;
     background: #f1f1f1;
 }
+ 
+
+ /* 
+/* עיצוב גלובלי 
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* סרגל הכלים 
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #f7f4e9; /* צבע שמנת 
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #ccc;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+li a:hover {
+    background-color: #d4b862;
+    color: white;
+}
+
+li a.active {
+    background-color: #d4b862;
+    color: white;
+}
+
+/* תוכן הדף 
+main {
+    margin-top: 60px; /* רווח מתחת לסרגל 
+}
+
+/* רספונסיביות למסכים קטנים 
+@media (max-width: 768px) {
+    ul {
+        display: flex;
+        flex-direction: column; /* הסרגל יסתדר בטור
+    }
+    li {
+        width: 100%; /* כל כפתור ייקח 100% מהרוחב 
+    }
+}
+ */
