@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Authentication</title>
+    <title><%= title || "User Authentication" %></title> <!-- כותרת דינמית -->
     <style>
         body {
             font-family: Arial, Fredoka;
@@ -27,13 +27,12 @@
             border-radius: 0;
             box-shadow: none;
             width: 30%;
-            margin: 0; /* ביטול המרווחות */
+            margin: 0;
             margin-top: -10%;
             display: flex;
             justify-content: space-between;
             gap: 10px;
         }
-
 
         .form-container {
             width: 48%;
@@ -98,7 +97,6 @@
     </style>
 </head>
 <body>
-
 <div class="container">
     <!-- Registration Form -->
     <div class="form-container">
@@ -124,34 +122,29 @@
 </div>
 
 <script>
-    // Add your JavaScript here
-    
+    // פונקציית התחברות
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const username = document.getElementById('loginUsername').value;
+        const password = document.getElementById('loginPassword').value;
 
-// פונקציית התחברות
-document.getElementById('loginForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const username = document.getElementById('loginUsername').value;
-    const password = document.getElementById('loginPassword').value;
+        try {
+            const response = await fetch('/api/users/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
 
-    try {
-        const response = await fetch('/api/users/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
-        });
-
-        if (response.ok) {
-            // אם ההתחברות הצליחה, הפנה לדף אחר
-            window.location.href = '/mainPage'; // החלף בנתיב של הדף הרצוי
-        } else {
-            const message = await response.text();
-            document.getElementById('loginMessage').innerText = message;
+            if (response.ok) {
+                window.location.href = '/mainPage'; // הפנייה לדף הראשי
+            } else {
+                const message = await response.text();
+                document.getElementById('loginMessage').innerText = message;
+            }
+        } catch (error) {
+            document.getElementById('loginMessage').innerText = 'Error logging in';
         }
-    } catch (error) {
-        document.getElementById('loginMessage').innerText = 'Error logging in';
-    }
-});
+    });
 </script>
-
 </body>
 </html>
