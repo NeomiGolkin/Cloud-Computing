@@ -1,0 +1,10 @@
+body {
+    background-image: url('/images/HOME_PAGE.jpg'); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    margin: 0; 
+    height: 100vh; 
+    color: #fff;
+    text-align: center; 
+}

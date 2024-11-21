@@ -1,12 +1,33 @@
 // mealController.js
+// ייבוא פונקציית התאריך מ-app.js
+const { getActiveDate } = require('../app');
+
 exports.addmeal = (req, res) => {
+    const activeDate = getActiveDate(); // קבלת התאריך הפעיל
+    const currentHour = activeDate.getHours(); // קבלת השעה מהתאריך הפעיל
+    let title;
+
+    // קביעת הכותרת לפי השעה
+    if (currentHour >= 5 && currentHour < 12) {
+        title = 'Add Breakfast';
+    } else if (currentHour >= 12 && currentHour < 16) {
+        title = 'Add Lunch';
+    } else if (currentHour >= 16 && currentHour < 22) {
+        title = 'Add Dinner';
+    } else {
+        title = 'Add Meal';
+    }
+
+    // רינדור הדף עם הכותרת הדינמית
     res.render('addmeal', { 
-        title: 'Add Meal', 
-        holidayMessage: '',  // ערך ברירת מחדל להודעת חג/שבת
-        tags: [],            // ערך ברירת מחדל לתגיות
-        message: ''          // ערך ברירת מחדל להודעות
+        title: title,         // הכותרת הדינמית
+        holidayMessage: '',   // ערך ברירת מחדל להודעת חג/שבת
+        tags: [],             // ערך ברירת מחדל לתגיות
+        message: ''           // ערך ברירת מחדל להודעות
     });
 };
+
+
 
 // controllers/authController.js
 exports.authPage = (req, res) => {

@@ -5,6 +5,17 @@ const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 
 
+// משתנים גלובליים לתאריך ושעה
+let useCustomDate = false; // true = שימוש בתאריך מותאם אישית
+let customDate = new Date(2024, 11, 21, 5, 30); // תאריך מותאם אישית לדוגמה
+// פונקציה שמחזירה את התאריך הפעיל (ידני או אוטומטי)
+function getActiveDate() {
+    return useCustomDate ? customDate : new Date();
+}
+// ייצוא פונקציית התאריך לשימוש בקבצים אחרים
+module.exports.getActiveDate = getActiveDate;
+
+
 const userRoutes = require('./routes/authRoutes');
 const addMealRoutes = require('./routes/addMealRoutes');
 const mealRoutes = require('./routes/mealRoutes');
@@ -12,7 +23,7 @@ const glucoseRoutes = require('./routes/glucoseRoutes');
 const authRoutes = require('./routes/authRoutes');
 
 const app = express();
-const port = process.env.PORT || 5005;
+const port = process.env.PORT || 5006;
 
 // הגדרת EJS כמנוע התבניות
 app.set('view engine', 'ejs');
@@ -39,7 +50,7 @@ app.use(session({
 // הגדרת הנתיבים
 app.use('/api/users', userRoutes);
 app.use('/api/glucose', glucoseRoutes);
-app.use('/api', addMealRoutes);
+app.use('/', addMealRoutes);
 app.use('/', mealRoutes);
 app.use(authRoutes);
 
@@ -47,9 +58,6 @@ app.use(authRoutes);
 app.get('/', (req, res) => {
     res.render('auth', { title: 'Login', active: '' });
 });
-// app.get('/auth', (req, res) => {
-//     res.render('auth', { title: 'Sign In' });
-// });
 
 
 // הפעלת השרת
