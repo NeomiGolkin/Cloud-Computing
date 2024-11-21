@@ -6,7 +6,7 @@ const session = require('express-session');
 
 
 // משתנים גלובליים לתאריך ושעה
-let useCustomDate = false; // true = שימוש בתאריך מותאם אישית
+let useCustomDate = true; // true = שימוש בתאריך מותאם אישית
 let customDate = new Date(2024, 11, 21, 5, 30); // תאריך מותאם אישית לדוגמה
 // פונקציה שמחזירה את התאריך הפעיל (ידני או אוטומטי)
 function getActiveDate() {
