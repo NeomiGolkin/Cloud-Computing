@@ -5,81 +5,68 @@ body {
     margin: 0;
     padding: 0;
     background-image: url('/images/GLUCOSE_CHART.jpg');
-    background-size: cover; 
+    background-size: cover; /* מבטיח שהתמונה תכסה את כל הרקע */
     background-repeat: no-repeat;
-    background-attachment: fixed; 
+    background-attachment: fixed; /* תמונה קבועה שלא זזה */
     background-position: center;
     color: rgb(255, 255, 255);
-    overflow-x: hidden;
+    overflow-x: hidden; /* מניעת גלילה אופקית */
 }
 
 .filter-container {
-    position: absolute; 
-    top: 38%; 
-    left: 70%;
-    transform: translateX(-50%); 
+    position: absolute; /* שליטה ידנית על מיקום המיכל */
+    top: 38%; /* התאמת המרחק מלמעלה */
+    left: 70%; /* התאמת המרחק מהצד השמאלי */
+    transform: translateX(-50%); /* מרכז את המיכל בצורה אופקית */
     display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    gap: 38px; 
+    flex-direction: column; /* מסדר את הכפתורים בטור */
+    align-items: center; /* ממרכז את הכפתורים */
+    gap: 38px; /* קובע רווח בין הכפתורים */
 }
-
 .filter-container input[type="date"] {
-    width: 170px; 
-    height: 31px; 
-    font-size: 16px;
-    padding: 10px; 
-    border-radius: 5px; 
-    background-color: #dfd29c; 
-    color: rgb(17, 16, 16); 
-    border: none; 
-    cursor: pointer;
+    width: 170px; /* רוחב הכפתורים */
+    height: 31px; /* גובה הכפתורים */
+    font-size: 16px; /* גודל הטקסט בכפתורים */
+    padding: 10px; /* ריווח פנימי */
+    border-radius: 5px; /* עיגול פינות */
+    background-color: #dfd29c; /* צבע רקע */
+    color: rgb(17, 16, 16); /* צבע טקסט */
+    border: none; /* ללא גבול */
+    cursor: pointer; /* שינוי מצביע העכבר */
 }
-
 .button-container {
-    position: absolute; 
-    top: 80%; 
-    left: 70%; 
-    transform: translateX(-50%); 
+    position: absolute; /* שליטה ידנית על מיקום המיכל */
+    top: 80%; /* התאמת המרחק מלמעלה */
+    left: 70%; /* התאמת המרחק מהצד השמאלי */
+    transform: translateX(-50%); /* מרכז את המיכל בצורה אופקית */
     display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    gap: 25px; 
+    flex-direction: column; /* מסדר את הכפתורים בטור */
+    align-items: center; /* ממרכז את הכפתורים */
+    gap: 38px; /* קובע רווח בין הכפתורים */
 }
-
 .button-container button {
-    width: 170px;
-    height: 45px; 
-    font-size: 16px;
-    padding: 10px; 
-    border-radius: 5px; 
-    background-color: #da121200; 
-    color: rgb(17, 16, 16); 
-    border: none; 
-    cursor: pointer; 
+    width: 170px; /* רוחב הכפתורים */
+    height: 31px; /* גובה הכפתורים */
+    font-size: 16px; /* גודל הטקסט בכפתורים */
+    padding: 10px; /* ריווח פנימי */
+    border-radius: 5px; /* עיגול פינות */
+    background-color: #dfd29c04; /* צבע רקע */
+    color: rgb(17, 16, 16); /* צבע טקסט */
+    border: none; /* ללא גבול */
+    cursor: pointer; /* שינוי מצביע העכבר */
 }
-
-html, body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden; 
-    height: 100%; 
-    width: 100%;
-}
-
 #glucoseChart {
-    width: 40%; 
+    width: 40%; /* מתאים למסך */
     max-width: 1700px;
     height: 500px;
-    max-height: 450px;
-    margin-top: 6.4%;
+    max-height: 450px; /* שמירת גובה מקסימלי */
+    margin-top: 11.5%;
     margin-right: 50%;
-    margin-bottom: 10%;
+    margin-bottom: -8%;
 }
-
 #colorPicker {
-    position: absolute; 
-    top: 30%;
-    left: 18%; 
-    transform: translate(-50%, -50%); 
+    position: absolute; /* מיקום מוחלט */
+    top: 31%; /* מרחק מלמעלה */
+    left: 17%; /* מרחק מהצד השמאלי */
+    transform: translate(-50%, -50%); /* ממרכז את האלמנט */
 }

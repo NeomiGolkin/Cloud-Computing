@@ -5,16 +5,13 @@ const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 
 
-// משתנים גלובליים לתאריך ושעה
-let useCustomDate = true; // true = שימוש בתאריך מותאם אישית
-let customDate = new Date(2024, 11, 21, 5, 30); // תאריך מותאם אישית לדוגמה
-// פונקציה שמחזירה את התאריך הפעיל (ידני או אוטומטי)
+let useCustomDate = true; 
+let customDate = new Date(2024, 11, 21, 5, 30);
 function getActiveDate() {
     return useCustomDate ? customDate : new Date();
 }
-// ייצוא פונקציית התאריך לשימוש בקבצים אחרים
-module.exports.getActiveDate = getActiveDate;
 
+module.exports.getActiveDate = getActiveDate;
 
 const userRoutes = require('./routes/authRoutes');
 const addMealRoutes = require('./routes/addMealRoutes');
