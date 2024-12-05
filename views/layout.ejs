@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="he">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My App</title>
     <link rel="stylesheet" href="/css/layout.css">
 </head>
+
 <body>
-    <header>
+    <% if (typeof active == 'undefined' || active !== 'auth') { %>
+        <header>
         <nav>
             <ul>
                 <li><a class="active" href="/mainPage">Home</a></li>
                 <li><a href="/add-meal">Add meal</a></li>
                 <li><a href="/glucose-chart">Graph meals</a></li>
-                <li><a href="/auth">Sign In</a></li>
+                <li><a href="/meal-history">Meal history</a></li>
+                <li><a href="/signout">Sign Out</a></li> 
             </ul>
         </nav>
     </header>
+    <% } %>
     <main>
-        <%- body %> 
+        <%- body %>
     </main>
 </body>
+
 </html>

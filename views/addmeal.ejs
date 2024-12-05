@@ -16,10 +16,14 @@
 
         <!-- מידע תזונתי -->
         <div id="sugarInfo"></div>
-        
+
         <!-- הודעות שבת/חג -->
         <div id="holidayMessage"><%= holidayMessage || '' %></div>
-        
+
+        <div id="date-container" data-date="<%= activeDate %>"></div>
+        <script>
+            console.log('Active Date in EJS:', '<%= activeDate %>');
+        </script>
         <!-- תוצאות דינמיות -->
         <div id="result"><%= tags && tags.length > 0 ? tags.map(tag => `${tag.tag.en} - Confidence: ${tag.confidence.toFixed(2)}%`).join('<br>') : '' %></div>
 

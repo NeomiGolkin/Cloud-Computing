@@ -1,0 +1,84 @@
+body {
+    font-family: Arial, sans-serif;
+    direction: rtl;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-image: url('/images/GLUCOSE_CHART.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    color: rgb(255, 255, 255);
+    overflow-x: hidden;
+}
+
+.filter-container {
+    position: absolute;
+    top: 38%;
+    left: 70%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 38px;
+}
+
+.filter-container input[type="date"] {
+    width: 170px;
+    height: 31px;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #dfd29c;
+    color: rgb(17, 16, 16);
+    border: none;
+    cursor: pointer;
+}
+
+.button-container {
+    position: absolute;
+    top: 80%;
+    left: 70%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.button-container button {
+    width: 170px;
+    height: 45px;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #da121200;
+    color: rgb(17, 16, 16);
+    border: none;
+    cursor: pointer;
+}
+
+table {
+    width: 45%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    left: 10%;
+    top: 20%;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: center;
+    color: black;
+}
+
+h1 {
+    color: black;
+}

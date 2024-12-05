@@ -123,9 +123,12 @@ async function addFoodGlucoseLevel(description, sugar, glucose) {
 
 async function checkIfShabbatOrHolidayOnDate(year, month, day, hour, minute) {
     try {
+        console.log('Date received in checkIfShabbatOrHolidayOnDate:', { year, month, day, hour, minute }); // בדיקה של הפרמטרים שהגיעו
         const data = await getShabbatAndHolidayData(); 
         const selectedDate = new Date(year, month - 1, day, hour, minute);
         const dayOfWeek = selectedDate.getDay();
+        console.log('Calculated Selected Date:', selectedDate); // בדיקת התאריך המחושב
+
 
         const candleLightingEvent = data.items.find(item => item.category === "candles" && item.date.startsWith(selectedDate.toISOString().split('T')[0]));
         const havdalahEvent = data.items.find(item => item.category === "havdalah" && item.date.startsWith(selectedDate.toISOString().split('T')[0]));
@@ -154,7 +157,7 @@ async function checkIfShabbatOrHolidayOnDate(year, month, day, hour, minute) {
                 message = 'שבת היום!';
             }
         } else {
-            message = 'היום זה לא שבת ולא חג';
+            message = 'היום זה יום חול';
         }
 
         return message;

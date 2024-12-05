@@ -159,27 +159,36 @@ function displayNutritionalInfo(foodItem, sugarValue, glucoseValue) {
 
 
 
-
-async function handleCheckDate(year, month, day, hour, minute) {
+async function handleCheckDate() {
     try {
-        // שליחת בקשה לנתיב שבשרת
-        console.log('hello');
+        // קבלת התאריך מתוך האלמנט ב-HTML
+        const dateContainer = document.getElementById('date-container');
+        const activeDateString = dateContainer.getAttribute('data-date');
+        const activeDate = new Date(activeDateString);
+        console.log('Date sent to server:', {
+            year: activeDate.getFullYear(),
+            month: activeDate.getMonth() + 1,
+            day: activeDate.getDate(),
+            hour: activeDate.getHours(),
+            minute: activeDate.getMinutes()
+        });
         const response = await fetch('/check-date', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                year: year,
-                month: month,
-                day: day,
-                hour: hour,
-                minute: minute
+                year: activeDate.getFullYear(),
+                month: activeDate.getMonth() + 1, 
+                day: activeDate.getDate(),
+                hour: activeDate.getHours(),
+                minute: activeDate.getMinutes()
             })
         });
 
         if (response.ok) {
             const data = await response.json();
+            console.log('Response from server:', data);
             const message = data.message; // קבלת ההודעה מהשרת
             displayHolidayMessage(message); // מציג את ההודעה
         } else {
@@ -190,6 +199,9 @@ async function handleCheckDate(year, month, day, hour, minute) {
     }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    handleCheckDate(); // קריאה לפונקציה
+});
 
 
 function displayHolidayMessage(message) {
@@ -199,4 +211,3 @@ function displayHolidayMessage(message) {
     holidayMessageDiv.style.fontWeight = 'bold';
 }
 
-handleCheckDate(2024, 11, 23, 19, 30);

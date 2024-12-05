@@ -1,3 +1,34 @@
-<% layout('layout') -%>
-<h1>היסטוריות של ארוחות</h1>
-<p>כאן תוכל לראות את ההיסטוריה של הארוחות שלך.</p>
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>היסטוריית ארוחות</title>
+    <link rel="stylesheet" href="/css/mealHistory.css"> <!-- קישור לקובץ CSS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/mealHistory.js" defer></script> <!-- קישור לקובץ JS -->
+</head>
+<body>
+    <h1>Meal History</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Sugar</th>
+                <th>Glucose</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody id="mealData"></tbody>
+    </table>
+    <div class="filter-container">
+        <input type="date" id="startDate">
+        <input type="date" id="endDate">
+    </div>
+    <div class="button-container">
+        <button id="filterButton"></button>
+        <button id="resetButton"></button>
+    </div>
+</body>
+</html>

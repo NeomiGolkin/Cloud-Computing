@@ -1,11 +1,14 @@
-exports.mealHistory = (req, res) => {
-    res.render('mealHistory'); // יש ליצור דף חדש להיסטוריות של ארוחות
-};
+const { getAllMeals } = require('../models/historyModel');
 
-exports.clinicMessages = (req, res) => {
-    res.render('clinicMessages'); // יש ליצור דף חדש להודעות מהמרפאה
-};
+async function showMealHistory(req, res) {
+    try {
+        const meals = await getAllMeals();
+        console.log('Meal History:', meals);
+        res.json(meals); // מחזיר את הנתונים כ-JSON
+    } catch (error) {
+        console.error('Error fetching meal history:', error);
+        res.status(500).send('Error fetching meal history');
+    }
+}
 
-exports.mealChart = (req, res) => {
-    res.render('mealChart'); // יש ליצור דף חדש לגרף ארוחות
-};
+module.exports = { showMealHistory };

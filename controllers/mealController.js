@@ -23,7 +23,8 @@ exports.addmeal = (req, res) => {
         title: title,         // הכותרת הדינמית
         holidayMessage: '',   // ערך ברירת מחדל להודעת חג/שבת
         tags: [],             // ערך ברירת מחדל לתגיות
-        message: ''           // ערך ברירת מחדל להודעות
+        message: '',         
+        activeDate: activeDate.toISOString()
     });
 };
 
